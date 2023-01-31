@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class GetDamage : MonoBehaviour
 {
-    public delegate void ActionKey(GameObject enemy,float damage);
-    public static event ActionKey onCollisionKey;
+    public delegate void DamageEnemy(float damage);
+    public static event DamageEnemy DamageAmount;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Lava"))
         {
-            if (onCollisionKey != null)
+            if (DamageAmount != null)
             {
-                onCollisionKey.Invoke(null, 0);
+                DamageAmount?.Invoke(100.0f);
             }
         }
         else if (collision.gameObject.CompareTag("Meteorite"))
         {
-            // _gameManager.TakeDamage(30f);
+            if (DamageAmount != null)
+            {
+                DamageAmount?.Invoke(30.0f);
+            }
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
-            // _gameManager.TakeDamage(10f);
+            if (DamageAmount != null)
+            {
+                DamageAmount?.Invoke(10.0f);
+            }
         }
         else if (collision.gameObject.CompareTag("BigBoss"))
         {
-            // _gameManager.TakeDamage(50f);
+            if (DamageAmount != null)
+            {
+                DamageAmount?.Invoke(50.0f);
+            }
         }
     }
 
